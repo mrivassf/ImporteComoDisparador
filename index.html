@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Sobreventa - Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .breadcrumb a {
+            color: #7c5cef;
+            text-decoration: none;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .tab {
+            padding: 16px 32px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #f0f0f0;
+        }
+
+        .tab.active {
+            color: #7c5cef;
+            border-bottom-color: #7c5cef;
+            background: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 32px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* General Configuration Tab */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: #e74c3c;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #7c5cef;
+            box-shadow: 0 0 0 3px rgba(124, 92, 239, 0.1);
+        }
+
+        .date-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .days-selector {
+            display: flex;
+            gap: 8px;
+        }
+
+        .day-chip {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .day-chip:hover {
+            border-color: #7c5cef;
+        }
+
+        .day-chip.selected {
+            background: #7c5cef;
+            border-color: #7c5cef;
+            color: white;
+        }
+
+        /* Configuration Tab - Containers */
+        .config-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .config-container {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 24px;
+            background: #fafafa;
+        }
+
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .config-icon {
+            font-size: 28px;
+        }
+
+        .config-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .config-subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Add Button */
+        .btn-add {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px dashed #7c5cef;
+            border-radius: 6px;
+            color: #7c5cef;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-add:hover {
+            background: #f8f6fe;
+            border-color: #6a4dd8;
+        }
+
+        /* Item List */
+        .items-list {
+            margin-top: 20px;
+        }
+
+        .item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-type {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .item-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .item-details {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .btn-delete {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #e74c3c;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #fdd;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-body {
+            margin-bottom: 24px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #7c5cef;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #6a4dd8;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+
+        .btn-next {
+            background: #7c5cef;
+            color: white;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-next:hover {
+            background: #6a4dd8;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            padding: 24px 32px;
+            border-top: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        /* Radio Options */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover {
+            border-color: #7c5cef;
+            background: #f8f6fe;
+        }
+
+        .radio-option.selected {
+            border-color: #7c5cef;
+            background: #f8f6fe;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 12px;
+        }
+
+        .radio-label {
+            flex: 1;
+        }
+
+        .radio-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-desc {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* Currency Input */
+        .currency-input-wrapper {
+            position: relative;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .currency-input {
+            padding-left: 32px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+        }
+
+        /* Price Config */
+        .price-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .price-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .price-option input[type="radio"] {
+            margin-top: 4px;
+        }
+
+        .price-option-content {
+            flex: 1;
+        }
+
+        .price-input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .small-input {
+            width: 120px;
+        }
+
+        /* Counter */
+        .counter {
+            background: #7c5cef;
+            color: white;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Tenant Badge */
+        .tenant-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        @media (max-width: 768px) {
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .date-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>Nueva Sobreventa</h1>
+                <div class="breadcrumb">
+                    <a href="#">Sobreventas</a> / <a href="#">Crear</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab" onclick="switchTab(0)">
+                ✓ General
+            </div>
+            <div class="tab active" onclick="switchTab(1)">
+                Configuración
+            </div>
+
+        </div>
+
+        <!-- Tab Contents -->
+        <div id="tab-0" class="tab-content">
+            <h2 style="margin-bottom: 24px; font-size: 20px;">Información General</h2>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Nombre de la Sobreventa <span class="required">*</span>
+                </label>
+                <input type="text" class="form-input" placeholder="Ej: Helado 1000 por Compra Alta"
+                    value="Helado 1000 por Compra Alta">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Período de Vigencia <span class="required">*</span></label>
+                <div class="date-inputs">
+                    <div>
+                        <label style="font-size: 13px; color: #666; margin-bottom: 4px; display: block;">Desde</label>
+                        <input type="text" class="form-input" placeholder="DD/MM/AAAA" value="01/02/2026">
+                    </div>
+                    <div>
+                        <label style="font-size: 13px; color: #666; margin-bottom: 4px; display: block;">Hasta</label>
+                        <input type="text" class="form-input" placeholder="DD/MM/AAAA" value="28/02/2026">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Días de la Semana <span class="required">*</span></label>
+                <div class="days-selector">
+                    <div class="day-chip selected">L</div>
+                    <div class="day-chip selected">M</div>
+                    <div class="day-chip selected">X</div>
+                    <div class="day-chip selected">J</div>
+                    <div class="day-chip selected">V</div>
+                    <div class="day-chip selected">S</div>
+                    <div class="day-chip selected">D</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Horario (Opcional)</label>
+                <div class="date-inputs">
+                    <input type="text" class="form-input" placeholder="HH:MM (desde)">
+                    <input type="text" class="form-input" placeholder="HH:MM (hasta)">
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-1" class="tab-content active">
+            <div class="config-grid">
+                <!-- Disparadores Section -->
+                <div class="config-container">
+                    <div class="config-header">
+                        <div class="config-icon">🎯</div>
+                        <div>
+                            <div class="config-title">
+                                Seleccione Disparador
+                                <span class="counter" id="trigger-count">2</span>
+                            </div>
+                            <div class="config-subtitle">Condiciones que activan la sobreventa</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-add" onclick="openTriggerModal()">
+                        <span style="font-size: 20px;">+</span>
+                        Agregar Disparador
+                    </button>
+
+                    <div class="items-list" id="triggers-list">
+                        <!-- Item 1 -->
+                        <div class="item">
+                            <div class="item-info">
+                                <div class="item-type">
+                                    <span>📦</span>
+                                    <span>Por Ítem</span>
+                                </div>
+                                <div class="item-name">Pizza Muzzarella Grande</div>
+                                <div class="item-details">Código: 001</div>
+                            </div>
+                            <button class="btn-delete" onclick="deleteTrigger(this)">Eliminar</button>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="item">
+                            <div class="item-info">
+                                <div class="item-type">
+                                    <span>💰</span>
+                                    <span>Por Importe</span>
+                                </div>
+                                <div class="item-name">$ 5,000.00</div>
+                                <div class="item-details">Valor total de la orden</div>
+                            </div>
+                            <button class="btn-delete" onclick="deleteTrigger(this)">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Productos a Ofrecer Section -->
+                <div class="config-container">
+                    <div class="config-header">
+                        <div class="config-icon">🎁</div>
+                        <div>
+                            <div class="config-title">
+                                Seleccione Ítem a Ofrecer
+                                <span class="counter" id="product-count">1</span>
+                            </div>
+                            <div class="config-subtitle">Productos que se ofrecerán al cliente</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-add" onclick="openProductModal()">
+                        <span style="font-size: 20px;">+</span>
+                        Agregar Ítem a Ofrecer
+                    </button>
+
+
+
+                    <div id="product-config-fields"
+                        style="margin-top: 24px; border-top: 1px solid #e0e0e0; padding-top: 24px;">
+                        <h4 style="font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 16px;">
+                            Configuración del Ítem</h4>
+
+                        <div class="form-group">
+                            <label class="form-label">Cantidad <span class="required">*</span></label>
+                            <input type="number" class="form-input" value="1" min="1" style="max-width: 150px;">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Configuración de Precio</label>
+                            <div class="price-options">
+                                <div class="price-option">
+                                    <div class="price-option-content">
+                                        <label style="font-weight: 500; display: block; margin-bottom: 8px;">Precio
+                                            Fijo</label>
+                                        <div class="price-input-group">
+                                            <span>$</span>
+                                            <input type="number" class="form-input small-input" placeholder="0.00"
+                                                step="0.01" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="items-list" id="products-list" style="margin-top: 24px;">
+                    <!-- Product 1 -->
+                    <div class="item">
+                        <div class="item-info">
+                            <div class="item-type">
+                                <span>🍦</span>
+                                <span>Producto</span>
+                            </div>
+                            <div class="item-name">Helado Artesanal 1kg</div>
+                            <div class="item-details">Cantidad: 1 • Precio: $1000 </div>
+                        </div>
+                        <button class="btn-delete" onclick="deleteProduct(this)">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            style="background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 6px; padding: 16px; margin-top: 24px;">
+            <strong style="color: #004085;">ℹ️ Lógica de Activación:</strong>
+            <p style="color: #004085; font-size: 14px; margin-top: 8px;">
+                Esta sobreventa se activará cuando se cumpla <strong>al menos uno</strong> de los disparadores
+                configurados.
+                Si el cliente compra Pizza Muzzarella <strong>O</strong> alcanza $5,000 en su pedido, se ofrecerá el
+                Helado 1000.
+            </p>
+        </div>
+    </div>
+
+
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+        <button class="btn-secondary" style="margin-right: 12px;">Cancelar</button>
+        <button class="btn-next" onclick="saveOversale()">
+            Guardar
+            <span>→</span>
+        </button>
+    </div>
+    </div>
+
+    <!-- Modal: Agregar Disparador -->
+    <div id="trigger-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Agregar Disparador</h3>
+                <button class="btn-close" onclick="closeTriggerModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 14px; color: #666; margin-bottom: 16px;">
+                    Seleccione el tipo de disparador que activará esta sobreventa:
+                </p>
+
+                <div class="radio-group">
+                    <!-- Por Ítem -->
+                    <div class="radio-option selected" onclick="selectTriggerType('item', this)">
+                        <input type="radio" name="trigger-type" checked>
+                        <div class="radio-label">
+                            <div class="radio-title">
+                                <span>📦</span>
+                                Por Ítem
+                            </div>
+                            <div class="radio-desc">Se activa cuando el cliente compra un producto específico</div>
+                        </div>
+                    </div>
+
+                    <!-- Por Importe -->
+                    <div class="radio-option" onclick="selectTriggerType('amount', this)">
+                        <input type="radio" name="trigger-type">
+                        <div class="radio-label">
+                            <div class="radio-title">
+                                <span>💰</span>
+                                Por Importe
+                            </div>
+                            <div class="radio-desc">Se activa cuando el total del pedido alcanza un monto mínimo</div>
+                        </div>
+                    </div>
+
+                    <!-- Por Promoción -->
+                    <div class="radio-option" onclick="selectTriggerType('promo', this)">
+                        <input type="radio" name="trigger-type">
+                        <div class="radio-label">
+                            <div class="radio-title">
+                                <span>🎁</span>
+                                Por Promoción/Combo
+                            </div>
+                            <div class="radio-desc">Se activa cuando el cliente adquiere una promoción específica</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tenant-note" id="grido-note" style="display: none;">
+                    ⚠️ <strong>Nota para Grido:</strong> Las promociones/combos no están disponibles para este tenant.
+                </div>
+
+                <!-- Configuración según tipo -->
+                <div id="config-item" style="margin-top: 24px;">
+                    <label class="form-label">Seleccione el Ítem <span class="required">*</span></label>
+                    <input type="text" class="form-input" placeholder="Buscar producto..." list="items-list-data">
+                    <datalist id="items-list-data">
+                        <option value="001 - Pizza Muzzarella Grande">
+                        <option value="002 - Pizza Napolitana">
+                        <option value="003 - Empanadas de Carne (x12)">
+                        <option value="004 - Coca Cola 2.5L">
+                    </datalist>
+                </div>
+
+                <div id="config-amount" style="margin-top: 24px; display: none;">
+                    <label class="form-label">Importe Mínimo del Pedido <span class="required">*</span></label>
+                    <div class="currency-input-wrapper">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" class="form-input currency-input" placeholder="0.00" step="0.01" min="0">
+                    </div>
+                    <p style="font-size: 13px; color: #666; margin-top: 8px;">
+                        ℹ️ Se considera el valor total de la orden (con impuestos y descuentos)
+                    </p>
+                </div>
+
+                <div id="config-promo" style="margin-top: 24px; display: none;">
+                    <label class="form-label">Seleccione la Promoción/Combo <span class="required">*</span></label>
+                    <input type="text" class="form-input" placeholder="Buscar promoción..." list="promo-list-data">
+                    <datalist id="promo-list-data">
+                        <option value="PROMO-001 - Combo Familiar XL">
+                        <option value="PROMO-002 - 2x1 en Pizzas">
+                        <option value="COMBO-015 - Mega Combo">
+                    </datalist>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeTriggerModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="addTrigger()">Agregar Disparador</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Agregar Producto -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Agregar Producto a Ofrecer</h3>
+                <button class="btn-close" onclick="closeProductModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Seleccione el Producto <span class="required">*</span></label>
+                    <input type="text" class="form-input" placeholder="Buscar producto..." list="products-catalog">
+                    <datalist id="products-catalog">
+                        <option value="045 - Helado Artesanal 1kg">
+                        <option value="046 - Helado Chocolate 500g">
+                        <option value="047 - Postre del Día">
+                        <option value="048 - Coca Cola 1.5L">
+                    </datalist>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeProductModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="addProduct()">Agregar Producto</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(index) {
+            document.querySelectorAll('.tab').forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+            document.querySelectorAll('.tab-content').forEach((content, i) => {
+                content.classList.toggle('active', i === index);
+            });
+        }
+
+        // Day selector
+        document.querySelectorAll('.day-chip').forEach(chip => {
+            chip.addEventListener('click', function () {
+                this.classList.toggle('selected');
+            });
+        });
+
+        // Trigger Modal
+        function openTriggerModal() {
+            document.getElementById('trigger-modal').classList.add('active');
+        }
+
+        function closeTriggerModal() {
+            document.getElementById('trigger-modal').classList.remove('active');
+        }
+
+        function selectTriggerType(type, element) {
+            // Update radio selection visually
+            document.querySelectorAll('.radio-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            element.querySelector('input[type="radio"]').checked = true;
+
+            // Show/hide configuration sections
+            document.getElementById('config-item').style.display = type === 'item' ? 'block' : 'none';
+            document.getElementById('config-amount').style.display = type === 'amount' ? 'block' : 'none';
+            document.getElementById('config-promo').style.display = type === 'promo' ? 'block' : 'none';
+
+            // Show Grido note if promo selected
+            const isGrido = false; // Simular tenant
+            document.getElementById('grido-note').style.display = (type === 'promo' && isGrido) ? 'block' : 'none';
+        }
+
+        function addTrigger() {
+            const type = document.querySelector('input[name="trigger-type"]:checked').parentElement.parentElement;
+            const typeText = type.querySelector('.radio-title').textContent.trim();
+
+            // Aquí se agregaría el disparador a la lista
+            alert('Disparador agregado: ' + typeText);
+            closeTriggerModal();
+
+            // Update counter
+            updateTriggerCount();
+        }
+
+        function deleteTrigger(button) {
+            if (confirm('¿Está seguro de eliminar este disparador?')) {
+                button.closest('.item').remove();
+                updateTriggerCount();
+            }
+        }
+
+        function updateTriggerCount() {
+            const count = document.querySelectorAll('#triggers-list .item').length;
+            document.getElementById('trigger-count').textContent = count;
+        }
+
+        // Product Modal
+        function openProductModal() {
+            document.getElementById('product-modal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.remove('active');
+        }
+
+        function addProduct() {
+            alert('Producto agregado');
+            closeProductModal();
+            updateProductCount();
+        }
+
+        function deleteProduct(button) {
+            if (confirm('¿Está seguro de eliminar este producto?')) {
+                button.closest('.item').remove();
+                updateProductCount();
+            }
+        }
+
+        function updateProductCount() {
+            const count = document.querySelectorAll('#products-list .item').length;
+            document.getElementById('product-count').textContent = count;
+        }
+
+        // Save
+        function saveOversale() {
+            const triggerCount = document.querySelectorAll('#triggers-list .item').length;
+            const productCount = document.querySelectorAll('#products-list .item').length;
+
+            if (triggerCount === 0) {
+                alert('❌ Debe agregar al menos un disparador');
+                return;
+            }
+
+            if (productCount === 0) {
+                alert('❌ Debe agregar al menos un producto a ofrecer');
+                return;
+            }
+
+            alert('✅ Sobreventa guardada correctamente!\n\nDisparadores: ' + triggerCount + '\nProductos: ' + productCount);
+        }
+
+        // Close modals on background click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
